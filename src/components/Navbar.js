@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Asegúrate de tener esto
+import { Link } from 'react-router-dom'; 
 
 const Navbar = () => {
   return (
@@ -16,7 +16,6 @@ const Navbar = () => {
   );
 };
 
-// Estilos básicos para el navbar (puedes modificarlos)
 const styles = {
   navbar: {
     backgroundColor: '#333',

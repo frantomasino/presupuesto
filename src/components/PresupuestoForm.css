@@ -1,4 +1,3 @@
-/* Estilo general del contenedor del formulario */
 .presupuesto-container {
     max-width: 600px;
     margin: 0 auto;
@@ -8,7 +7,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Título del formulario */
   .presupuesto-title {
     text-align: center;
     font-size: 24px;
@@ -16,7 +14,6 @@
     color: #333;
   }
   
-  /* Estilo de los labels */
   label {
     font-weight: bold;
     display: block;
@@ -24,7 +21,6 @@
     font-size: 16px;
   }
   
-  /* Estilo de los campos de texto e input */
   input[type="text"],
   input[type="number"],
   input[type="date"],
@@ -39,7 +35,6 @@
     box-sizing: border-box;
   }
   
-  /* Estilo de los botones */
   button {
     background-color: #4CAF50;
     color: white;
@@ -55,7 +50,6 @@
     background-color: #45a049;
   }
   
-  /* Estilo de la lista de productos */
   .productos-container {
     margin-bottom: 20px;
   }
@@ -83,7 +77,6 @@
     color: #555;
   }
   
-  /* Estilo de la sección del total */
   .total-presupuesto {
     text-align: right;
     font-size: 18px;

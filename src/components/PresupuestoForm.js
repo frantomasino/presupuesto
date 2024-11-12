@@ -9,12 +9,26 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
   const [productos, setProductos] = useState([]);
 
   const [productoSeleccionado, setProductoSeleccionado] = useState("");
-  const [productoCantidad, setProductoCantidad] = useState("1"); // Iniciar en 1
-  const [productoPreparacion, setProductoPreparacion] = useState("ninguno"); // Iniciar en "Ninguno"
+  const [productoCantidad, setProductoCantidad] = useState("1");  
+  const [productoPreparacion, setProductoPreparacion] = useState("ninguno");  
 
   const listaProductos = [
-    { nombre: "Tapas de Empanadas x330g ", precio: 817 },
-    { nombre: "Pascualina", precio: 80 },
+    { nombre: "Tapas para empanadas x330g ", precio: 817 },
+    { nombre: "Tapas para empanadas GOLD x400g (mas gruesas)", precio: 993 },
+    { nombre: "Tapas para empanadas GOURMET x400g (super crocantes)", precio: 993 },
+    { nombre: "Tapas para empanadas SALVADO x330g (fuente de fibras)", precio: 817 },
+    { nombre: "Tapas para pascualina x400g ", precio: 995 },
+    { nombre: "Tapas para pascualina light x400g ", precio: 995 },
+    { nombre: "Tapas para pascualina GOURMET x500g (super crocantes)", precio: 1273 },
+    { nombre: "Tapas para pascualina SALVADO x400g (fuente de fibras)", precio: 995 },
+    { nombre: "Tapas para empanadas Super x500g ", precio: 1113 },
+    { nombre: "Tapas para empanadas Super Tubo x2Kg. x 4 doc", precio: 4195 },
+    { nombre: "Tapas para empanadas Super Salvado x500g (consultar)", precio: 1158 },
+    { nombre: "Tapas para copetin x330g ", precio: 834 },
+    { nombre: "Tapas para pastel x450g ", precio: 1025 },
+    { nombre: "Tapas para empanadas tipo Fatay x650g ", precio: 1686 },
+    { nombre: "Tapas para Pre-pizza x580g (2u)", precio: 1923 },
+    { nombre: "Ravioles x600g. x 2 planchas ", precio: 1942 },
     { nombre: "Ravioles 1kg", precio: 100 },
   ];
 
@@ -168,6 +182,9 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
             <option value="horno">Horno</option>
             <option value="frita">Frita</option>
             <option value="criolla">Criolla</option>
+            <option value="criolla">Ricota</option>
+            <option value="criolla">Verdura</option>
+            <option value="criolla">Pollo</option>
           </select>
 
           <button 
@@ -182,24 +199,24 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
         <div className="productos-lista">
           <h4>Productos Agregados:</h4>
           <ul>
-            {productos.map((producto, index) => (
-              <li key={index}>
-                {producto.nombre} - {producto.preparacion ? `${producto.preparacion} - ` : ""}{producto.cantidad} x ${producto.precio} = ${producto.precio * producto.cantidad}
-                <button 
-                  type="button" 
-                  onClick={() => eliminarProducto(index)}
-                  className="eliminar-producto-btn"
-                >
-                  Eliminar
-                </button>
-              </li>
-            ))}
-          </ul>
+  {productos.map((producto, index) => (
+    <li key={index}>
+      {producto.nombre} - ${producto.precio.toLocaleString()} x{producto.cantidad} = ${(producto.precio * producto.cantidad).toLocaleString()}
+      <button 
+        type="button" 
+        onClick={() => eliminarProducto(index)}
+        className="eliminar-producto-btn"
+      >
+        Eliminar
+      </button>
+         </li>
+      ))}
+   </ul>
         </div>
 
         <div className="total-presupuesto">
-          <h3>Total: ${calcularTotal()}</h3>
-        </div>
+          <h3>Total: ${calcularTotal().toLocaleString()}</h3>
+         </div>
 
         <button type="submit" className="presupuesto-btn">
           Crear Presupuesto
