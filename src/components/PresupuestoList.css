@@ -1,0 +1,77 @@
+/* Estilos para el Listado de Presupuestos */
+.presupuesto-list {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .list-title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .no-presupuestos {
+    font-size: 1.2em;
+    color: #999;
+    text-align: center;
+  }
+  
+  .presupuesto-items {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .presupuesto-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .presupuesto-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .presupuesto-info {
+    font-size: 1.1em;
+    color: #333;
+  }
+  
+  .presupuesto-info strong {
+    color: #555;
+    margin-right: 5px;
+  }
+  
+  .total-presupuesto {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.agregar-producto-btn,
+.eliminar-producto-btn {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.agregar-producto-btn:hover,
+.eliminar-producto-btn:hover {
+  background-color: #2980b9;
+}
+
+.eliminar-producto-btn {
+  background-color: #e74c3c;
+}
+
+.eliminar-producto-btn:hover {
+  background-color: #c0392b;
+}

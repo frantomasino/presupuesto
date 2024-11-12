@@ -1,0 +1,170 @@
+/* Estilo general del contenedor del formulario */
+.presupuesto-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Título del formulario */
+  .presupuesto-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Estilo de los labels */
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  /* Estilo de los campos de texto e input */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Estilo de los botones */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Estilo de la lista de productos */
+  .productos-container {
+    margin-bottom: 20px;
+  }
+  
+  .productos-lista {
+    margin-top: 20px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .productos-lista h4 {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .productos-lista ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .productos-lista li {
+    padding: 5px 0;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Estilo de la sección del total */
+  .total-presupuesto {
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+  }
+  
+  .agregar-producto-btn {
+    background-color: #2196F3;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .agregar-producto-btn:hover {
+    background-color: #0b7dda;
+  }
+  
+  .eliminar-producto-btn {
+    margin-left: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .eliminar-producto-btn:hover {
+    background-color: #c0392b;
+  }
+  
+
+  .total-presupuesto {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .agregar-producto-btn,
+  .eliminar-producto-btn {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .agregar-producto-btn:hover,
+  .eliminar-producto-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .eliminar-producto-btn {
+    background-color: #e74c3c;
+  }
+  
+  .eliminar-producto-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  /* Estilo para el botón de Imprimir Presupuesto */
+.presupuesto-btn-imprimir {
+  background-color: #f39c12; /* Color amarillo dorado */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.presupuesto-btn-imprimir:hover {
+  background-color: #e67e22; /* Color naranja más oscuro */
+}
