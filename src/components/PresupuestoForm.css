@@ -1,152 +1,47 @@
+/* Contenedor principal del presupuesto */
 .presupuesto-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .presupuesto-title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 16px;
-  }
-  
-  input[type="text"],
-  input[type="number"],
-  input[type="date"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  .productos-container {
-    margin-bottom: 20px;
-  }
-  
-  .productos-lista {
-    margin-top: 20px;
-    background-color: #f1f1f1;
-    padding: 10px;
-    border-radius: 4px;
-  }
-  
-  .productos-lista h4 {
-    font-size: 18px;
-    color: #333;
-  }
-  
-  .productos-lista ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  
-  .productos-lista li {
-    padding: 5px 0;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  .total-presupuesto {
-    text-align: right;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-top: 10px;
-  }
-  
-  .agregar-producto-btn {
-    background-color: #2196F3;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .agregar-producto-btn:hover {
-    background-color: #0b7dda;
-  }
-  
-  .eliminar-producto-btn {
-    margin-left: 10px;
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .eliminar-producto-btn:hover {
-    background-color: #c0392b;
-  }
-  
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .total-presupuesto {
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .agregar-producto-btn,
-  .eliminar-producto-btn {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .agregar-producto-btn:hover,
-  .eliminar-producto-btn:hover {
-    background-color: #2980b9;
-  }
-  
-  .eliminar-producto-btn {
-    background-color: #e74c3c;
-  }
-  
-  .eliminar-producto-btn:hover {
-    background-color: #c0392b;
-  }
-  
- .presupuesto-btn-imprimir {
-  background-color: #f39c12;  
+/* Título */
+.presupuesto-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Etiquetas de los campos */
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+/* Campos de entrada (text, number, date, textarea, select) */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Botones generales */
+button {
+  background-color: #4CAF50;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -157,38 +52,200 @@
   margin-top: 10px;
 }
 
-.presupuesto-btn-imprimir:hover {
-  background-color: #e67e22;  
-}
-
-
- 
-/* Botón de Crear Presupuesto */
-.boton-container .crear-btn {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.boton-container .crear-btn:hover {
+button:hover {
   background-color: #45a049;
 }
 
-/* Botón de Imprimir */
-.boton-container .imprimir-btn {
+/* Estilos para la lista de productos */
+.productos-container {
+  margin-bottom: 20px;
+}
+
+.productos-lista {
+  margin-top: 20px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.productos-lista h4 {
+  font-size: 18px;
+  color: #333;
+}
+
+.productos-lista ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.productos-lista li {
+  padding: 5px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+/* Estilo del total */
+.total-presupuesto {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Botón para agregar productos */
+.agregar-producto-btn {
+  background-color: #2196F3;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.agregar-producto-btn:hover {
+  background-color: #0b7dda;
+}
+
+/* Botón para eliminar productos */
+.eliminar-producto-btn {
+  margin-left: 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.eliminar-producto-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Estilos para los botones de imprimir y enviar */
+.presupuesto-btn-imprimir,
+.presupuesto-btn-enviar-wtp {
   background-color: #f39c12; /* Color amarillo dorado */
   color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.boton-container .imprimir-btn:hover {
-  background-color: #e67e22;
+.presupuesto-btn-imprimir:hover,
+.presupuesto-btn-enviar-wtp:hover {
+  background-color: #e67e22; /* Color naranja más oscuro */
 }
 
-/* Botón de Enviar por WhatsApp */
-.boton-container .whatsapp-btn {
-  background-color: #25D366; /* Verde de WhatsApp */
-  color: white;
+/* Estilo específico para dispositivos móviles */
+@media (max-width: 768px) {
+  .presupuesto-container {
+    padding: 15px;
+  }
+
+  .presupuesto-title {
+    font-size: 20px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .productos-lista h4 {
+    font-size: 16px;
+  }
+
+  .productos-lista li {
+    font-size: 14px;
+  }
+
+  .total-presupuesto {
+    font-size: 16px;
+  }
+
+  /* Redimensionar los botones de acción (agregar, eliminar) */
+  .agregar-producto-btn,
+  .eliminar-producto-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  /* Botones de imprimir y enviar por WhatsApp */
+  .presupuesto-btn-imprimir,
+  .presupuesto-btn-enviar-wtp {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
 }
 
-.boton-container .whatsapp-btn:hover {
-  background-color: #128C7E; /* Verde oscuro de WhatsApp */
+/* Estilo para pantallas pequeñas */
+@media (max-width: 480px) {
+  .presupuesto-container {
+    padding: 10px;
+  }
+
+  .presupuesto-title {
+    font-size: 18px;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .productos-lista h4 {
+    font-size: 14px;
+  }
+
+  .productos-lista li {
+    font-size: 12px;
+  }
+
+  .total-presupuesto {
+    font-size: 14px;
+  }
+
+  .agregar-producto-btn,
+  .eliminar-producto-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .presupuesto-btn-imprimir,
+  .presupuesto-btn-enviar-wtp {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
 }

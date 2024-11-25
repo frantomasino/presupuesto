@@ -1,6 +1,6 @@
-import React, { useState } from "react"; // Importa React y useState
-import { jsPDF } from "jspdf";           // Importa jsPDF para manejar la generación de PDF
-import "./PresupuestoForm.css";          // Importa los estilos (si los tienes)
+import React, { useState } from "react"; 
+import { jsPDF } from "jspdf";            
+import "./PresupuestoForm.css";          
 
 const formatearNumero = (numero) => {
   return new Intl.NumberFormat("es-AR", {
