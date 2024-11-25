@@ -145,9 +145,8 @@
     background-color: #c0392b;
   }
   
-  /* Estilo para el botón de Imprimir Presupuesto */
-.presupuesto-btn-imprimir {
-  background-color: #f39c12; /* Color amarillo dorado */
+ .presupuesto-btn-imprimir {
+  background-color: #f39c12;  
   color: white;
   padding: 12px 20px;
   border: none;
@@ -159,5 +158,37 @@
 }
 
 .presupuesto-btn-imprimir:hover {
-  background-color: #e67e22; /* Color naranja más oscuro */
+  background-color: #e67e22;  
+}
+
+
+ 
+/* Botón de Crear Presupuesto */
+.boton-container .crear-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.boton-container .crear-btn:hover {
+  background-color: #45a049;
+}
+
+/* Botón de Imprimir */
+.boton-container .imprimir-btn {
+  background-color: #f39c12; /* Color amarillo dorado */
+  color: white;
+}
+
+.boton-container .imprimir-btn:hover {
+  background-color: #e67e22;
+}
+
+/* Botón de Enviar por WhatsApp */
+.boton-container .whatsapp-btn {
+  background-color: #25D366; /* Verde de WhatsApp */
+  color: white;
+}
+
+.boton-container .whatsapp-btn:hover {
+  background-color: #128C7E; /* Verde oscuro de WhatsApp */
 }

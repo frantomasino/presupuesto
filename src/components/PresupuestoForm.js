@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
-import './PresupuestoForm.css';
+import React, { useState } from "react"; // Importa React y useState
+import { jsPDF } from "jspdf";           // Importa jsPDF para manejar la generación de PDF
+import "./PresupuestoForm.css";          // Importa los estilos (si los tienes)
+
+const formatearNumero = (numero) => {
+  return new Intl.NumberFormat("es-AR", {
+    style: "decimal",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(numero);
+};
 
 const PresupuestoForm = ({ onCrearPresupuesto }) => {
   const [cliente, setCliente] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fecha, setFecha] = useState("");
   const [productos, setProductos] = useState([]);
-
   const [productoSeleccionado, setProductoSeleccionado] = useState("");
-  const [productoCantidad, setProductoCantidad] = useState("1");  
-  const [productoPreparacion, setProductoPreparacion] = useState("ninguno");  
 
   const listaProductos = [
     { nombre: "Tapas para empanadas x330g ", precio: 817 },
@@ -32,10 +37,87 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
     { nombre: "Ravioles 1kg", precio: 100 },
   ];
 
-  const calcularTotal = () => {
-    return productos.reduce((total, producto) => {
-      return total + producto.precio * producto.cantidad;
-    }, 0);
+  const calcularTotal = () =>
+    productos.reduce((total, producto) => total + producto.precio * producto.cantidad, 0);
+
+  const agregarProducto = () => {
+    const productoBase = listaProductos.find((prod) => prod.nombre === productoSeleccionado);
+    if (productoBase) {
+      setProductos([
+        ...productos,
+        {
+          nombre: productoBase.nombre,
+          precio: productoBase.precio,
+          cantidad: 1, // Cantidad inicial
+          preparacion: "ninguno", // Preparación inicial por defecto
+        },
+      ]);
+    }
+  };
+
+  const actualizarProducto = (index, key, value) => {
+    const productosActualizados = [...productos];
+    productosActualizados[index][key] = key === "cantidad" ? parseInt(value) : value;
+    setProductos(productosActualizados);
+  };
+
+  const eliminarProducto = (index) => {
+    setProductos(productos.filter((_, i) => i !== index));
+  };
+
+  const generarPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Presupuesto", 10, 10);
+    doc.text(`Cliente: ${cliente}`, 10, 20);
+    doc.text(`Descripción: ${descripcion}`, 10, 30);
+    doc.text(`Fecha: ${new Date(fecha).toLocaleDateString()}`, 10, 40);
+
+    let yOffset = 50;
+    productos.forEach((producto) => {
+      doc.text(
+        `${producto.nombre} - ${producto.cantidad} x $${formatearNumero(producto.precio)} = $${formatearNumero(
+          producto.cantidad * producto.precio
+        )} (${producto.preparacion})`,
+        10,
+        yOffset
+      );
+      yOffset += 10;
+    });
+
+    doc.text(`Total: $${formatearNumero(calcularTotal())}`, 10, yOffset + 10);
+    doc.save("presupuesto.pdf");
+  };
+
+  const generarWhatsAppLink = () => {
+    const presupuestoText = `
+      Presupuesto para ${cliente}
+      Descripción: ${descripcion}
+      Fecha: ${new Date(fecha).toLocaleDateString()}
+
+      Productos:
+      ${productos
+        .map(
+          (producto) =>
+            `${producto.nombre} (${producto.cantidad} x $${formatearNumero(
+              producto.precio
+            )}) = $${formatearNumero(producto.cantidad * producto.precio)} (${producto.preparacion})`
+        )
+        .join("\n")}
+
+      Total: $${formatearNumero(calcularTotal())}
+    `;
+    
+    // Codifica el texto para el enlace de WhatsApp
+    const mensaje = encodeURIComponent(presupuestoText);
+
+    // Reemplaza el número de teléfono con el del cliente
+    const telefono = "+5491131256510"; // Número de teléfono en formato internacional (código de país + número)
+    return `https://wa.me/${telefono}?text=${mensaje}`;
+  };
+
+  const enviarPorWhatsApp = () => {
+    const link = generarWhatsAppLink();
+    window.open(link, "_blank");
   };
 
   const handleSubmit = (e) => {
@@ -58,66 +140,17 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
     setProductos([]);
   };
 
-  const agregarProducto = () => {
-    const producto = listaProductos.find((prod) => prod.nombre === productoSeleccionado);
-    if (producto && productoCantidad) {
-      setProductos([
-        ...productos,
-        {
-          nombre: producto.nombre,
-          precio: producto.precio,
-          cantidad: parseInt(productoCantidad),
-          preparacion: productoPreparacion === "ninguno" ? "" : productoPreparacion,
-        },
-      ]);
-    } else {
-      alert("Por favor selecciona un producto, preparación y cantidad.");
-    }
-  };
-
-  const eliminarProducto = (index) => {
-    const productosActualizados = productos.filter((_, i) => i !== index);
-    setProductos(productosActualizados);
-  };
-
-  const generarPDF = () => {
-    const doc = new jsPDF();
-    doc.setFont("helvetica");
-    doc.setFontSize(14);
-
-    doc.text("Presupuesto", 10, 10);
-    doc.text(`Cliente: ${cliente}`, 10, 20);
-    doc.text(`Descripción: ${descripcion}`, 10, 30);
-    doc.text(`Fecha: ${new Date(fecha).toLocaleDateString()}`, 10, 40);
-
-    let yOffset = 50;
-    productos.forEach((producto) => {
-      const preparacionText = producto.preparacion ? ` - ${producto.preparacion}` : "";
-      doc.text(
-        `${producto.nombre}${preparacionText} - ${producto.cantidad} x $${producto.precio} = $${producto.precio * producto.cantidad}`,
-        10,
-        yOffset
-      );
-      yOffset += 10;
-    });
-
-    doc.text(`Total: $${calcularTotal()}`, 10, yOffset + 10);
-    doc.save("presupuesto.pdf");
-  };
-
   return (
     <div className="presupuesto-container">
-      <h2 className="presupuesto-title">Generar Presupuesto</h2>
+      <h2>Generar Presupuesto</h2>
       <form onSubmit={handleSubmit} className="presupuesto-form">
-        
         <label htmlFor="cliente">Nombre del Cliente:</label>
-        <input 
-          type="text" 
-          id="cliente" 
-          value={cliente} 
-          onChange={(e) => setCliente(e.target.value)} 
-          placeholder="Ingrese el nombre del cliente" 
-          required 
+        <input
+          type="text"
+          id="cliente"
+          value={cliente}
+          onChange={(e) => setCliente(e.target.value)}
+          required
         />
 
         <label htmlFor="descripcion">Descripción:</label>
@@ -125,7 +158,6 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
           id="descripcion"
           value={descripcion}
           onChange={(e) => setDescripcion(e.target.value)}
-          placeholder="Ingrese la descripción del presupuesto"
           required
         />
 
@@ -137,97 +169,84 @@ const PresupuestoForm = ({ onCrearPresupuesto }) => {
           onChange={(e) => setFecha(e.target.value)}
           required
         />
-        
-        <div className="productos-container">
-          <label htmlFor="productoSeleccionado">Producto:</label>
-          <select 
-            id="productoSeleccionado" 
-            value={productoSeleccionado} 
-            onChange={(e) => setProductoSeleccionado(e.target.value)}
-          >
-            <option value="">Selecciona un producto</option>
-            {listaProductos.map((producto, index) => (
-              <option key={index} value={producto.nombre}>
-                {producto.nombre} - ${producto.precio} 
-              </option>
-            ))}
-          </select>
 
-          <label htmlFor="productoCantidad">Cantidad:</label>
-          <select 
-            id="productoCantidad" 
-            value={productoCantidad} 
-            onChange={(e) => setProductoCantidad(e.target.value)}
-          >
-            <option value="1">x1</option>
-            <option value="5">x5</option>
-            <option value="10">x10</option>
-            <option value="15">x15</option>
-            <option value="20">x20</option>
-            <option value="25">x25</option>
-            <option value="30">x30</option>
-            <option value="35">x35</option>
-            <option value="40">x40</option>
-            <option value="45">x45</option>
-            <option value="50">x50</option>
-          </select>
+        <h4>Seleccionar Producto:</h4>
+        <select
+          value={productoSeleccionado}
+          onChange={(e) => setProductoSeleccionado(e.target.value)}
+        >
+          <option value="">Seleccione un producto</option>
+          {listaProductos.map((producto, index) => (
+            <option key={index} value={producto.nombre}>
+              {producto.nombre} - ${formatearNumero(producto.precio)}
+            </option>
+          ))}
+        </select>
 
-          <label htmlFor="productoPreparacion">Preparación:</label>
-          <select
-            id="productoPreparacion"
-            value={productoPreparacion}
-            onChange={(e) => setProductoPreparacion(e.target.value)}
-          >
-            <option value="ninguno">Ninguno</option>
-            <option value="horno">Horno</option>
-            <option value="frita">Frita</option>
-            <option value="criolla">Criolla</option>
-            <option value="criolla">Ricota</option>
-            <option value="criolla">Verdura</option>
-            <option value="criolla">Pollo</option>
-          </select>
-
-          <button 
-            type="button" 
-            onClick={agregarProducto}
-            className="agregar-producto-btn"
-          >
-            Agregar Producto
-          </button>
-        </div>
+        <button type="button" onClick={agregarProducto}>
+          Agregar Producto
+        </button>
 
         <div className="productos-lista">
           <h4>Productos Agregados:</h4>
-          <ul>
-  {productos.map((producto, index) => (
-    <li key={index}>
-      {producto.nombre} - ${producto.precio.toLocaleString()} x{producto.cantidad} = ${(producto.precio * producto.cantidad).toLocaleString()}
-      <button 
-        type="button" 
-        onClick={() => eliminarProducto(index)}
-        className="eliminar-producto-btn"
-      >
-        Eliminar
-      </button>
-         </li>
-      ))}
-   </ul>
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Preparación</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productos.map((producto, index) => (
+                <tr key={index}>
+                  <td>{producto.nombre}</td>
+                  <td>
+                    <select
+                      value={producto.preparacion}
+                      onChange={(e) =>
+                        actualizarProducto(index, "preparacion", e.target.value)
+                      }
+                    >
+                      <option value="ninguno">Ninguno</option>
+                      <option value="horno">Horno</option>
+                      <option value="frita">Frita</option>
+                      <option value="criolla">Criolla</option>
+                      <option value="ricota">Ricota</option>
+                      <option value="verdura">Verdura</option>
+                      <option value="pollo">Pollo</option>
+                    </select>
+                  </td>
+                  <td>{producto.cantidad}</td>
+                  <td>${producto.precio.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td>${(producto.precio * producto.cantidad).toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                  <td>
+                    <button
+                      onClick={() => eliminarProducto(index)}
+                      className="eliminar-producto-btn"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div className="total-presupuesto">
-          <h3>Total: ${calcularTotal().toLocaleString()}</h3>
-         </div>
+          <h3>Total: ${formatearNumero(calcularTotal())}</h3>
+        </div>
 
-        <button type="submit" className="presupuesto-btn">
-          Crear Presupuesto
-        </button>
-
-        <button 
-          type="button" 
-          onClick={generarPDF} 
-          className="presupuesto-btn"
-        >
+        <button type="submit">Crear Presupuesto</button>
+        <button type="button" onClick={generarPDF}>
           Imprimir PDF
+        </button>
+        <button type="button" onClick={enviarPorWhatsApp}>
+          Enviar por WhatsApp
         </button>
       </form>
     </div>

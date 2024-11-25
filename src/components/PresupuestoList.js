@@ -1,85 +1,87 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 
-const PresupuestoList = ({ presupuestos, onEliminarPresupuesto }) => {
-  const handleEliminar = (index) => {
-    onEliminarPresupuesto(index);
-  };
-
-  const handleImprimir = (presupuesto) => {
-    const doc = new jsPDF();
-
-    doc.setFontSize(16);
-    doc.text("Presupuesto", 10, 10);
-    doc.text(`Cliente: ${presupuesto.cliente}`, 10, 20);
-    doc.text(`Descripción: ${presupuesto.descripcion}`, 10, 30);
-    doc.text(`Monto: $${presupuesto.monto}`, 10, 40);
-    doc.text(`Cantidad: ${presupuesto.cantidad}`, 10, 50);
-    doc.text(`Fecha: ${new Date(presupuesto.fecha).toLocaleDateString()}`, 10, 60);
-
-    doc.save(`presupuesto_${presupuesto.cliente}.pdf`);
+const PresupuestoList = ({ presupuestos }) => {
+  const calcularTotal = (productos) => {
+    return productos.reduce(
+      (total, producto) => total + producto.cantidad * producto.precio,
+      0
+    );
   };
 
   return (
     <div>
       <h2>Listado de Presupuestos</h2>
-      <ul>
-        {presupuestos.map((presupuesto, index) => (
-          <li key={index} style={styles.item}>
-            <p>Cliente: {presupuesto.cliente}</p>
-            <p>Descripción: {presupuesto.descripcion}</p>
-            <p>Monto: {presupuesto.monto}</p>
-            <p>Cantidad: {presupuesto.cantidad}</p>
-            <p>Fecha: {new Date(presupuesto.fecha).toLocaleDateString()}</p>
+      {presupuestos.map((presupuesto, index) => (
+        <div key={index} style={styles.item}>
+          <p>Cliente: {presupuesto.cliente}</p>
+          <p>Descripción: {presupuesto.descripcion}</p>
+          <p>Fecha: {new Date(presupuesto.fecha).toLocaleDateString()}</p>
 
-            {/* Botón para eliminar */}
-            <button 
-              onClick={() => handleEliminar(index)} 
-              style={styles.deleteBtn}
-            >
-              Eliminar
-            </button>
-
-            {/* Botón para imprimir */}
-            <button 
-              onClick={() => handleImprimir(presupuesto)} 
-              style={styles.imprimirBtn}
-            >
-              Imprimir Presupuesto
-            </button>
-          </li>
-        ))}
-      </ul>
+          {/* Tabla de productos */}
+          <h4>Productos:</h4>
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th style={styles.th}>Descripción</th>
+                <th style={styles.th}>Cantidad</th>
+                <th style={styles.th}>Precio Unitario</th>
+                <th style={styles.th}>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {presupuesto.productos.map((producto, prodIndex) => (
+                <tr key={prodIndex}>
+                  <td style={styles.td}>{producto.nombre}</td>
+                  <td style={styles.td}>{producto.cantidad}</td>
+                  <td style={styles.td}>${producto.precio.toLocaleString()}</td>
+                  <td style={styles.td}>
+                    ${(producto.cantidad * producto.precio).toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan="3" style={{ textAlign: "right", fontWeight: "bold" }}>
+                  Total:
+                </td>
+                <td style={styles.td}>
+                  ${calcularTotal(presupuesto.productos).toLocaleString()}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      ))}
     </div>
   );
 };
 
 const styles = {
   item: {
-    marginBottom: '20px',
-    padding: '10px',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    backgroundColor: '#f9f9f9',
+    marginBottom: "20px",
+    padding: "10px",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    backgroundColor: "#f9f9f9",
   },
-  deleteBtn: {
-    backgroundColor: '#e74c3c',
-    color: 'white',
-    border: 'none',
-    padding: '5px 10px',
-    cursor: 'pointer',
-    borderRadius: '4px',
-    marginTop: '10px',
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginTop: "10px",
   },
-  imprimirBtn: {
-    backgroundColor: '#f39c12',
-    color: 'white',
-    border: 'none',
-    padding: '5px 10px',
-    cursor: 'pointer',
-    borderRadius: '4px',
-    marginTop: '10px',
-  }
+  th: {
+    border: "1px solid #ddd",
+    padding: "8px",
+    textAlign: "left",
+    backgroundColor: "#f4f4f4",
+  },
+  td: {
+    border: "1px solid #ddd",
+    padding: "8px",
+    textAlign: "left",
+  },
 };
 
 export default PresupuestoList;
